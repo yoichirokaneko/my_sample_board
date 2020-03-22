@@ -20,6 +20,8 @@
 	 	  	<p class="card-text">カテゴリー：{{ $post->category->category_name }}</p>
 	 	  </div>
 		  <div class="card-body">
+		  	<!-- 画像を表示する記述 -->
+		  	<img width="300px" height="300px" src="{{ asset('/storage/' . $post->image) }}">
 		  	<!-- 改行が挿入されているデータを改行として表示するための処理と、文字数を制限して表示するための処理を記述 -->
 			  <p class="card-text">{!! nl2br(e(Str::limit($post->body,250))) !!}</p>
 			  <!-- 詳細ページへのリンク。urlに変数を使用するため、変数を渡す記述方法を使用。actionメソッドを使用し、第２引数に渡したい変数を記述することで、その変数をcontrollerに渡せる -->
@@ -43,7 +45,7 @@
 				    @csrf
 				    @method('DELETE')
 			      <button class="btn btn-danger">削除</button>
-			　　　</form>
+				　</form>
 	  	    @endif
 		  </div>
 		  @endguest

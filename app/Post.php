@@ -11,6 +11,7 @@ class Post extends Model
         	'category_id',
         	'title',
         	'body',
+        	'image',
         ];
 
         public function comments(){

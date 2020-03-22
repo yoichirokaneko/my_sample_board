@@ -48,3 +48,6 @@ Route::post('/comment/{comment_id}/edit', 'CommentController@update');
 
 // コメントの削除ボタンをクリックした際に発動するデータベース上のコメントを削除するメソッドを呼び出す
 Route::delete('/comment/{comment_id}', 'CommentController@delete');
+
+
+

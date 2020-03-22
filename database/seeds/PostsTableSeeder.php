@@ -15,7 +15,7 @@ class PostsTableSeeder extends Seeder
         	[
         		'user_id' => '1',
         		'category_id' => '1',
-        		'title' => '仕事の投稿',
+        		'title' => 'サントリーニ島',
         		'body' => '本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文',
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' =>  date('Y-m-d H:i:s'),
@@ -23,7 +23,7 @@ class PostsTableSeeder extends Seeder
         	[
         		'user_id' => '2',
         		'category_id' => '2',
-        		'title' => '旅行の投稿',
+        		'title' => '',
         		'body' => '本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文',
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' =>  date('Y-m-d H:i:s'),

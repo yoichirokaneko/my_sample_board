@@ -4,7 +4,7 @@
 @section('content')
 	<div class="container">
  	<h1>投稿の編集ページ</h1>
- 	 	<form method="POST" action="{{ action('PostController@update', $post->id) }}">
+ 	 	<form method="POST" action="{{ action('PostController@update', $post->id) }}" enctype="multipart/form-data">
  	 		 		{{ csrf_field() }}
  	  		@if (count($errors) > 0)
 			    @foreach ($errors->all() as $error)
@@ -16,6 +16,11 @@
 			    <!-- タイトル欄をinputとして用意。既存のタイトルデータの内容を予め表示しておくために、value属性に値を記載 -->
 			    <input type="text" class="form-control" id="title" name="title" value="{{ $post->title}}">
 			</div>
+
+			 <!-- 既存の画像データの内容を表示。画像を投稿するための機能を実装 -->
+	      　<label for="file">投稿画像</label><br>
+	        <img width="300px" height="300px" src="{{ asset('/storage/' . $post->image) }}">
+			<input type="file" id="file" name="file" class="form-control">
 
 			<div class="form-group">
 			    <label for="category">カテゴリー</label>

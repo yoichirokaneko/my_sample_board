@@ -4,7 +4,7 @@
 <div class="container">
  	<h1>投稿の新規作成</h1>
  	<!-- フォームタグのすぐ下に、セキュリティ対策を記述 -->
- 	<form method="POST" action="{{ url('/post/create') }}">
+ 	<form method="POST" action="{{ url('/post/create') }}" enctype="multipart/form-data">
  		{{ csrf_field() }}
 	<!-- バリデーション用に作成した、formrequestのバリデーションが満たされない場合に、エラーメッセージを表示するための、if文。もし、バリデーションの条件が満たされない場合、該当のエラー文言が表示される -->
 		@if (count($errors) > 0)
@@ -28,6 +28,11 @@
 	    	@endforeach
 	    </select>
 	  </div>
+
+       <!-- 画像を投稿するための機能を実装 -->
+       <label for="file">投稿画像</label>
+	  <input type="file" id="file" name="file" class="form-control">
+
 	<!-- postsテーブルのbodyカラムに挿入するデータを記載する場所。name属性に記載した文言をコントローラーでrequestメソッドで引き出せる -->
 	  <div class="form-group">
         <label for="body">投稿内容</label>

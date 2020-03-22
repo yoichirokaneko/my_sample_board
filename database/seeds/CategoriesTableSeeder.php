@@ -12,10 +12,10 @@ class CategoriesTableSeeder extends Seeder
     public function run()
     {
         DB::table('categories')->insert([
-        	['category_name' => '仕事'],
-            ['category_name' => '旅行'],
-            ['category_name' => 'グルメ'],
-            ['category_name' => '読書'],
+        	['category_name' => '自然・風景'],
+            ['category_name' => '遺跡・建築物'],
+            ['category_name' => '街並み・夜景'],
+            ['category_name' => '料理・飲み物'],
         ]);
     }
 }
