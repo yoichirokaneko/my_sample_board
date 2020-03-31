@@ -21,6 +21,7 @@
 	 	  </div>
 		  <div class="card-body">
 		  	<!-- 画像を表示する記述 -->
+		  	<!-- asset関数を使うことで、ファイルのディレクトリを気にすることなく、パスを記載できる -->
 		  	<img width="300px" height="300px" src="{{ asset('/storage/' . $post->image) }}">
 		  	<!-- 改行が挿入されているデータを改行として表示するための処理と、文字数を制限して表示するための処理を記述 -->
 			  <p class="card-text">{!! nl2br(e(Str::limit($post->body,250))) !!}</p>
@@ -51,5 +52,8 @@
 		  @endguest
 	 </div>
 	 @endforeach
+	 <div class="pagination justify-content-center">
+		{{ $posts->links() }}
+	</div>
 </div>
 @endsection

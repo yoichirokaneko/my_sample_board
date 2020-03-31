@@ -9,12 +9,16 @@ use App\Comment;
 use App\Category;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Faker\Factory;
+use Carbon\Carbon;
+
+
 
 class PostController extends Controller
 {
 	// ↓ トップページのコントローラー。postsテーブルの情報を取得し、viewにわたす
     public function index(){
-    	$posts = Post::latest()->with(['category','user'])->get();
+    	$posts = Post::latest()->with(['category','user'])->paginate(10);
     	return view('post.index',['posts' => $posts]);
     }
 
