@@ -12,7 +12,7 @@
 	 	  	<p class="card-text">カテゴリー：{{ $post->category->category_name }}</p>
 	 	  </div>
 		  <div class="card-body">
-		  	<img width="600px" height="600px" src="{{ asset('/storage/' . $post->image) }}">
+		  	<img src="{{ asset('/storage/' . $post->image) }}" class="img-fluid">
 		  	<!-- ↓ ママデータを表示すると、改行が反映されない。改行を反映するため、nl2br(e())というメソッドを使用。文字列エンコードはまだよく理解しきれていない！ -->
 			  <p class="card-text">{!! nl2br(e($post->body)) !!}</p>
   		　</div>
