@@ -17,7 +17,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'TripPhotograph') }}</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -42,7 +42,7 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    Trip Photograph
+                    {{ config('app.name')}}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -56,14 +56,50 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
-                        @guest
+                         <!--Admin Authentication Links -->
+                         <!-- 以下の記述は設定したガードを呼び出しているっぽい。これで、管理者ログインをチェック -->
+                         <!-- unlessはadminがログインしていない時の表示を記述 -->
+                        @unless(Auth::guard('admin')->check())
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                <a class="nav-link" href="{{ route('admin.login') }}">{{ __('AdminLogin') }}</a>
                             </li>
-                            @if (Route::has('register'))
+                            <!-- @if (Route::has('admin.register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link" href="{{ route('admin.register') }}">{{ __('Register') }}</a>
+                                </li>
+                            @endif -->
+
+                        @else
+                        <!-- else以下でadminがログインした時の表示を記述 -->
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    {{ Auth::guard('admin')->user()->name }} <span class="caret"></span>
+                                </a>
+
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('admin.logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
+                                </div>
+                            </li>
+                        @endunless
+
+
+
+                        <!--User Authentication Links -->
+                        @unless(Auth::guard('user')->check())
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('user.login') }}">{{ __('UserLogin') }}</a>
+                            </li>
+                            @if (Route::has('user.register'))
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('user.register') }}">{{ __('UserRegister') }}</a>
                                 </li>
                             @endif
                         @else
@@ -73,18 +109,18 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                    <a class="dropdown-item" href="{{ route('user.logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    <form id="logout-form" action="{{ route('user.logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
                                 </div>
                             </li>
-                        @endguest
+                        @endunless
                     </ul>
                 </div>
             </div>

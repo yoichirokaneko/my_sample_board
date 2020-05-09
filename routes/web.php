@@ -20,11 +20,55 @@ Route::get('/post/create', 'PostController@create')->middleware('auth');
 //新規投稿ページで記載した内容をpostsテーブルに書き込む処理を行うメソッドを呼び出す
 Route::post('post/create', 'PostController@store');
 
-// Authのインポートで記述された処理。よく把握してません。
-Auth::routes();
+// // Authのインポートで記述された処理。
+// Auth::routes();
 
-// authのインポートで記述された処理。よく把握してません。
-Route::get('/home', 'HomeController@index')->name('home');
+// //User認証不要
+// Route::get('/home', function() {return redirect('/home');});
+
+// //Userログイン後
+// Route::middleware('auth:user')->group(function(){
+// 	Route::get('/home', 'HomeController@index')->name('home');
+// });
+
+// //Admin認証不要
+// Route::group(['prefix' => 'admin'], function(){
+// 	Route::get('/', function(){return redirect('admin/home');});
+// 	Route::get('login', 'Admin\Auth\LoginController@showLoginForm')->name('admin.login');
+// 	Route::post('login', 'Admin\Auth\LoginController@login');
+// });
+
+// //Adminログイン後
+// Route::middleware('auth:admin')->group(function(){
+// 	Route::get('/admin/home', 'Admin\HomeController@index')->name('admin.home');
+// 	Route::post('/admin/logout', 'Admin\Auth\LoginController@logout')->name('admin.logout');
+// });
+
+Route::namespace('User')->prefix('user')->name('user.')->group(function(){
+	Auth::routes([
+		'register' => true,
+		'reset' => false,
+		'verify' =>false,
+	]);
+
+	Route::middleware('auth:user')->group(function(){
+		Route::resource('home', 'HomeController', ['only' => 'index']);
+	});
+});
+
+Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function(){
+	Auth::routes([
+		'register' => false,
+		'reset' => false,
+		'verify' => false,
+	]);
+
+	Route::middleware('auth:admin')->group(function(){
+		Route::resource('home', 'HomeController', ['only' => 'index']);
+	});
+});
+
+
 
 // 投稿の詳細ページへ遷移する処理を行うメソッドを呼び出す
 Route::get('/post/{post_id}/show', 'PostController@show')->name('show');

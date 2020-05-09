@@ -9,6 +9,7 @@
  	<div class="my-3" >
     <a href="{{ url('/post/create') }}" class="btn btn-primary">新規投稿作成</a>
  	</div>
+ 	</div>
 
 <!-- コントローラーにおいて、データベースから値を取得し、その値をビューに渡す記述をしている。その値をこのbladeで受け取り、受け取ったデータを表示する記述を書いている -->
  	@foreach($posts as $post)
@@ -50,8 +51,24 @@
 	  	    @endif
 		  </div>
 		  @endguest
+
+		<!-- 管理者ログインしている場合のみ以下の要素を表示 -->
+			@auth('admin')
+			<div class="card-footer">
+		  	    <form
+				    method="POST"
+				    action="{{action('PostController@delete', $post->id)}}"
+				>
+					 @csrf
+					 @method('DELETE')
+			     <button class="btn btn-danger">削除</button>　
+				</form>
+			</div>
+		   @endauth
+
 	 </div>
 	 @endforeach
+
 	 <div class="pagination justify-content-center">
 		{{ $posts->links() }}
 	</div>
